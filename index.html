@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="RAMEN 222 — ramen coreano, sabores intensos y una experiencia K-Style.">
+<meta name="theme-color" content="#0a0a0a">
+<title>RAMEN 222 | Korean Ramen Experience</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;900&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#08090b;
+  --panel:#111318;
+  --panel2:#17191f;
+  --white:#f5f5f2;
+  --muted:#a7a8ad;
+  --red:#e21b2d;
+  --red2:#ff3b4d;
+  --blue:#173f7a;
+  --gold:#d9b86c;
+  --line:rgba(255,255,255,.09);
+  --shadow:0 20px 60px rgba(0,0,0,.42);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(circle at 85% 10%,rgba(226,27,45,.13),transparent 25%),
+    radial-gradient(circle at 10% 30%,rgba(23,63,122,.12),transparent 22%),
+    var(--bg);
+  color:var(--white);
+  font-family:Inter,Arial,sans-serif;
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.container{width:min(1180px,92%);margin:auto}
+
+/* NAV */
+.nav{
+  position:fixed;z-index:1000;top:0;left:0;right:0;
+  background:rgba(8,9,11,.72);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:2px}
+.brand-mark{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(145deg,var(--red),#7d0d18);
+  display:grid;place-items:center;
+  font-family:Orbitron,sans-serif;font-size:12px;
+  box-shadow:0 0 28px rgba(226,27,45,.3);
+}
+.brand small{display:block;color:var(--gold);font-size:9px;letter-spacing:3px;margin-top:2px}
+.links{display:flex;gap:28px;color:#ddd;font-size:13px}
+.links a:hover{color:var(--red2)}
+.nav-actions{display:flex;gap:9px;align-items:center}
+.icon-btn,.cart-btn{
+  border:1px solid var(--line);background:#101116;color:#fff;
+  border-radius:12px;height:42px;padding:0 13px
+}
+.cart-btn{position:relative}
+.cart-count{
+  position:absolute;right:-7px;top:-7px;min-width:20px;height:20px;
+  border-radius:50%;background:var(--red);font-size:11px;display:grid;place-items:center
+}
+.menu-toggle{display:none}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;align-items:center;position:relative;
+  background:
+    linear-gradient(90deg,rgba(5,6,8,.96) 0%,rgba(5,6,8,.78) 42%,rgba(5,6,8,.25) 100%),
+    linear-gradient(180deg,rgba(0,0,0,.1),var(--bg)),
+    url("https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=2000&q=85") center/cover;
+}
+.hero:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:50px 50px;mask-image:linear-gradient(to bottom,black,transparent 85%);
+}
+.hero-content{position:relative;z-index:2;padding-top:76px;max-width:720px}
+.korean{font-family:"Noto Sans KR",sans-serif;color:var(--red2);letter-spacing:7px;font-size:14px;font-weight:700}
+.hero h1{
+  font-family:Orbitron,sans-serif;font-size:clamp(58px,10vw,130px);
+  line-height:.86;letter-spacing:-5px;margin:20px 0;
+  text-shadow:0 15px 50px #000;
+}
+.hero h1 span{color:var(--red)}
+.hero p{max-width:590px;color:#d0d0d2;font-size:17px;line-height:1.75}
+.hero-buttons{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{
+  border:0;border-radius:12px;padding:14px 21px;font-weight:800;
+  transition:.25s;display:inline-flex;align-items:center;gap:8px
+}
+.btn-primary{background:var(--red);color:#fff;box-shadow:0 12px 30px rgba(226,27,45,.22)}
+.btn-primary:hover{transform:translateY(-3px);background:var(--red2)}
+.btn-outline{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.18)}
+.btn-outline:hover{background:rgba(255,255,255,.1)}
+.hero-stats{display:flex;gap:35px;margin-top:42px}
+.stat strong{font-size:23px}.stat span{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+
+/* SECTIONS */
+section{padding:105px 0}
+.section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:38px}
+.eyebrow{color:var(--red2);font-size:11px;letter-spacing:3px;font-weight:800;text-transform:uppercase}
+.section-title{font-size:clamp(34px,5vw,58px);line-height:1.05;margin-top:8px}
+.section-title span{color:var(--gold)}
+.section-copy{color:var(--muted);max-width:520px;line-height:1.7;font-size:14px}
+
+/* BUILDER */
+.builder{
+  background:linear-gradient(135deg,rgba(226,27,45,.08),rgba(23,63,122,.08));
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)
+}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:30px}
+.step{
+  background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;
+}
+.step-number{color:var(--gold);font-family:Orbitron;font-size:12px}
+.step h3{margin:8px 0;font-size:18px}
+.step p{color:var(--muted);font-size:13px;line-height:1.5}
+.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.choice{
+  width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);
+  color:#fff;border-radius:18px;padding:20px;transition:.2s
+}
+.choice:hover,.choice.selected{border-color:var(--red);transform:translateY(-2px);background:#171116}
+.choice b{display:block;font-size:18px}.choice span{color:var(--muted);font-size:13px;display:block;margin-top:6px}
+.price{color:var(--gold);font-weight:800;float:right}
+.builder-result{
+  margin-top:20px;background:#0d0e12;border:1px solid var(--line);border-radius:18px;padding:22px;
+  display:flex;align-items:center;justify-content:space-between;gap:15px
+}
+.result-text{color:var(--muted);font-size:13px}.result-text strong{color:#fff;font-size:17px}
+
+/* MENU */
+.filters{display:flex;gap:9px;flex-wrap:wrap}
+.filter{
+  background:#101116;color:#ccc;border:1px solid var(--line);padding:9px 14px;border-radius:999px;font-size:12px
+}
+.filter.active,.filter:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{
+  background:linear-gradient(180deg,#15171c,#0f1014);
+  border:1px solid var(--line);border-radius:20px;overflow:hidden;
+  box-shadow:var(--shadow);transition:.3s
+}
+.card:hover{transform:translateY(-6px);border-color:rgba(226,27,45,.45)}
+.card-img{height:205px;background-size:cover;background-position:center;position:relative}
+.badge{
+  position:absolute;left:12px;top:12px;background:rgba(0,0,0,.7);
+  border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(8px);
+  border-radius:999px;padding:7px 10px;font-size:10px
+}
+.card-body{padding:18px}
+.card-top{display:flex;justify-content:space-between;gap:10px}
+.card h3{font-size:17px}.card-price{color:var(--gold);font-weight:900}
+.card p{color:var(--muted);font-size:12.5px;line-height:1.6;margin:10px 0 15px}
+.card-footer{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:10px;border:1px solid var(--line);border-radius:999px;padding:5px 7px;color:#bbb}
+.add{
+  background:var(--red);color:white;border:0;border-radius:10px;padding:10px 12px;font-weight:800;font-size:11px
+}
+.add:hover{background:var(--red2)}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:55px;align-items:center}
+.about-photo{
+  min-height:510px;border-radius:28px;
+  background:
+   linear-gradient(180deg,transparent 45%,rgba(0,0,0,.65)),
+   url("https://images.unsplash.com/photo-1617093727343-374698b1b08d?auto=format&fit=crop&w=1200&q=85") center/cover;
+  box-shadow:var(--shadow);border:1px solid var(--line)
+}
+.about-text p{color:var(--muted);line-height:1.8;margin:18px 0}
+.feature{display:flex;gap:12px;margin-top:20px}
+.feature-icon{width:40px;height:40px;border-radius:12px;background:rgba(226,27,45,.12);display:grid;place-items:center}
+.feature b{display:block}.feature span{color:var(--muted);font-size:12px;line-height:1.5}
+
+/* REVIEWS / CTA */
+.review{
+  padding:28px;background:var(--panel);border:1px solid var(--line);border-radius:20px;
+}
+.stars{color:var(--gold);letter-spacing:2px}.review p{margin:13px 0;color:#ddd;line-height:1.7}
+.review small{color:var(--muted)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cta{
+  margin-top:60px;border-radius:28px;padding:55px;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.3)),
+    url("https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=1600&q=85") center/cover;
+  border:1px solid var(--line)
+}
+.cta h2{font-size:clamp(32px,5vw,60px);max-width:650px}.cta p{color:#ccc;max-width:550px;margin:15px 0 25px;line-height:1.6}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:55px 0 25px;background:#07080a}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
+.footer h3{margin-bottom:13px}.footer p,.footer a{display:block;color:var(--muted);font-size:13px;line-height:2}
+.copyright{border-top:1px solid var(--line);margin-top:35px;padding-top:20px;color:#666;font-size:11px;display:flex;justify-content:space-between}
+
+/* CART */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1500;opacity:0;pointer-events:none;transition:.25s}
+.overlay.show{opacity:1;pointer-events:auto}
+.cart{
+  position:fixed;right:0;top:0;height:100vh;width:min(430px,92vw);background:#0c0d10;
+  z-index:1600;transform:translateX(100%);transition:.3s;border-left:1px solid var(--line);
+  display:flex;flex-direction:column
+}
+.cart.open{transform:translateX(0)}
+.cart-head{padding:22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.cart-items{padding:18px;overflow:auto;flex:1}
+.cart-item{display:flex;justify-content:space-between;gap:10px;padding:14px 0;border-bottom:1px solid var(--line)}
+.cart-item small{display:block;color:var(--muted);margin-top:4px}
+.remove{background:none;border:0;color:#ff6672}
+.cart-bottom{padding:20px;border-top:1px solid var(--line)}
+.total{display:flex;justify-content:space-between;font-size:19px;font-weight:900;margin-bottom:15px}
+.empty{color:var(--muted);text-align:center;padding:50px 15px;line-height:1.6}
+
+/* MODAL */
+.modal-wrap{position:fixed;inset:0;z-index:1700;background:rgba(0,0,0,.7);display:none;place-items:center;padding:20px}
+.modal-wrap.show{display:grid}
+.modal{width:min(500px,100%);background:#111318;border:1px solid var(--line);border-radius:22px;padding:25px}
+.modal-head{display:flex;justify-content:space-between;margin-bottom:20px}
+.close{border:0;background:none;color:#aaa;font-size:25px}
+.form{display:grid;gap:12px}.form input,.form select{
+  width:100%;background:#0b0c0f;border:1px solid var(--line);color:white;border-radius:11px;padding:13px
+}
+.notice{font-size:11px;color:#888;line-height:1.5}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .links{display:none}.menu-toggle{display:block}
+  .steps,.menu-grid,.reviews-grid{grid-template-columns:1fr 1fr}
+  .about-grid{grid-template-columns:1fr}
+  .about-photo{min-height:380px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+  .nav-inner{height:68px}.hero{min-height:850px;background-position:62% center}
+  .hero h1{font-size:64px}.hero p{font-size:14px}
+  section{padding:75px 0}.section-head{display:block}.section-copy{margin-top:14px}
+  .steps,.choice-grid,.menu-grid,.reviews-grid{grid-template-columns:1fr}
+  .hero-stats{gap:20px;flex-wrap:wrap}
+  .about-photo{min-height:300px}.cta{padding:32px 24px}
+  .footer-grid{grid-template-columns:1fr}.copyright{display:block}.copyright span{display:block;margin-top:7px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="#inicio">
+      <div class="brand-mark">222</div>
+      <div>RAMEN <small>SEOUL STYLE / 222</small></div>
+    </a>
+
+    <nav class="links">
+      <a href="#inicio">Inicio</a>
+      <a href="#menu">Menú</a>
+      <a href="#arma">Arma tu ramen</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn" onclick="openReservation()">Reservar</button>
+      <button class="cart-btn" onclick="openCart()">🛒 <span class="cart-count" id="count">0</span></button>
+      <button class="icon-btn menu-toggle" onclick="mobileNav()">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+<section class="hero">
+  <div class="container hero-content">
+    <div class="korean">라멘 222 · KOREAN RAMEN</div>
+    <h1>RAMEN<br><span>222</span></h1>
+    <p>
+      Ramen, picante, umami y combinaciones fuera de lo común.
+      Una experiencia inspirada en Corea con una identidad urbana, intensa y contemporánea.
+    </p>
+    <div class="hero-buttons">
+      <a href="#menu" class="btn btn-primary">🍜 Explorar menú</a>
+      <button class="btn btn-outline" onclick="openReservation()">📅 Reservar mesa</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong>22+</strong><span>opciones de ramen</span></div>
+      <div class="stat"><strong>3 pasos</strong><span>para crear tu ramen</span></div>
+      <div class="stat"><strong>222</strong><span>identidad propia</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="arma" class="builder">
+<div class="container">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Experiencia 222</div>
+      <h2 class="section-title">ARMA TU <span>RAMEN</span></h2>
+    </div>
+    <p class="section-copy">El menú del PDF plantea una experiencia en tres pasos: escoge tu ramen, decide cómo prepararlo y agrega toppings.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="step-number">01</div><h3>Escoge tu ramen</h3><p>Elige una opción con caldo o una alternativa salteada.</p></div>
+    <div class="step"><div class="step-number">02</div><h3>¿Cómo lo quieres?</h3><p>Selecciona la preparación disponible para tu ramen.</p></div>
+    <div class="step"><div class="step-number">03</div><h3>Toppings</h3><p>Pollo, arrachera, queso suizo o huevo extra.</p></div>
+  </div>
+
+  <div class="choice-grid">
+    <button class="choice" onclick="chooseBase(this,'Traaaaaanqui con caldo',15)"><span>CON CALDO <i class="price">$15</i></span><b>Traaaaaanqui</b><span>Caldo de la casa a base de cebolla y especias.</span></button>
+    <button class="choice" onclick="chooseBase(this,'Dale que daleee con caldo',20)"><span>CON CALDO <i class="price">$20</i></span><b>Dale que daleee</b><span>Caldo de la casa, huevito cocido, elote salteado y alga nori sabor limoncito con sal.</span></button>
+    <button class="choice" onclick="chooseBase(this,'Traaaaaanqui salteado',15)"><span>SALTEADO <i class="price">$15</i></span><b>Traaaaaanqui</b><span>Ramen marinado con el caldo de la casa, hecho a base de cebolla y especias.</span></button>
+    <button class="choice" onclick="chooseBase(this,'Dale que dalee salteado',30)"><span>SALTEADO <i class="price">$30</i></span><b>Dale que dalee</b><span>Preparado de manera 222, con salsa a base de mayonesa, huevito cocido y alga nori sabor limonsote con sal.</span></button>
+  </div>
+
+  <div class="builder-result">
+    <div class="result-text">Tu selección: <strong id="selection">Todavía no has elegido un ramen.</strong></div>
+    <button class="btn btn-primary" onclick="addBuilder()">Agregar al pedido</button>
+  </div>
+</div>
+</section>
+
+<section id="menu">
+<div class="container">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Nuestros ramen</div>
+      <h2 class="section-title">MENÚ <span>222</span></h2>
+    </div>
+    <p class="section-copy">Información y precios organizados a partir del menú proporcionado.</p>
+  </div>
+
+  <div class="filters" style="margin-bottom:24px">
+    <button class="filter active" onclick="filterMenu('all',this)">Todo</button>
+    <button class="filter" onclick="filterMenu('caldo',this)">Con caldo</button>
+    <button class="filter" onclick="filterMenu('salteado',this)">Salteado</button>
+  </div>
+
+  <div class="menu-grid" id="menuGrid"></div>
+</div>
+</section>
+
+<section id="nosotros">
+<div class="container about-grid">
+  <div class="about-photo"></div>
+  <div class="about-text">
+    <div class="eyebrow">222 · Korean Ramen</div>
+    <h2 class="section-title">NO ES SOLO<br><span>RAMEN.</span></h2>
+    <p>
+      RAMEN 222 nace de una propuesta centrada en ramen, caldos intensos,
+      preparaciones salteadas y combinaciones con identidad oriental.
+    </p>
+    <p>
+      Desde el caldo de la casa con cebolla y especias hasta opciones como kimchi,
+      tofu, shiitake, gochujang, mariscos y queso, el menú reúne perfiles muy distintos
+      para que cada visita tenga algo nuevo que descubrir.
+    </p>
+
+    <div class="feature"><div class="feature-icon">🔥</div><div><b>Sabores intensos</b><span>Opciones picantes, especiadas, cremosas y profundas.</span></div></div>
+    <div class="feature"><div class="feature-icon">🥢</div><div><b>Estilo oriental</b><span>Ingredientes y referencias coreanas dentro de una experiencia urbana.</span></div></div>
+    <div class="feature"><div class="feature-icon">🍜</div><div><b>Tu elección</b><span>Caldo, salteado y toppings para personalizar el pedido.</span></div></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="cta">
+    <div class="eyebrow">RAMEN 222</div>
+    <h2>Tu próximo ramen empieza <span style="color:var(--red)">aquí.</span></h2>
+    <p>Explora el menú, arma tu combinación y agrega tus favoritos al pedido.</p>
+    <a href="#menu" class="btn btn-primary">Ver todo el menú →</a>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="container">
+  <div class="section-head">
+    <div><div class="eyebrow">La gente habla</div><h2 class="section-title">SOCIAL <span>PROOF</span></h2></div>
+    <p class="section-copy">Espacio listo para conectar reseñas reales de Google, Instagram o TikTok.</p>
+  </div>
+  <div class="reviews-grid">
+    <div class="review"><div class="stars">★★★★★</div><p>“Aquí aparecerá una reseña real de un cliente.”</p><small>Reseña pendiente de conectar</small></div>
+    <div class="review"><div class="stars">★★★★★</div><p>“Puedes sustituir este texto por comentarios de tus comensales.”</p><small>Instagram / TikTok</small></div>
+    <div class="review"><div class="stars">★★★★★</div><p>“Diseñado para que la experiencia de marca continúe después del menú.”</p><small>Google Reviews</small></div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer id="contacto" class="footer">
+<div class="container">
+  <div class="footer-grid">
+    <div>
+      <div class="brand"><div class="brand-mark">222</div><div>RAMEN <small>SEOUL STYLE / 222</small></div></div>
+      <p style="margin-top:15px">Korean ramen · Experiencia K-Style · 222</p>
+    </div>
+    <div><h3>Explora</h3><a href="#menu">Menú</a><a href="#arma">Arma tu ramen</a><a href="#nosotros">Nosotros</a></div>
+    <div><h3>Horario</h3><p>Agregar horario real</p><p>Agregar días de servicio</p></div>
+    <div><h3>Contacto</h3><p>Agregar dirección</p><p>Agregar teléfono</p><p>Instagram · TikTok · Facebook</p></div>
+  </div>
+  <div class="copyright"><span>© 2026 RAMEN 222. Todos los derechos reservados.</span><span>Diseño K-Style · Mobile First</span></div>
+</div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<aside class="cart" id="cart">
+  <div class="cart-head"><h2>Tu pedido</h2><button class="close" onclick="closeCart()">×</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-bottom">
+    <div class="total"><span>Total</span><span id="total">$0</span></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="sendWhatsApp()">Enviar pedido por WhatsApp</button>
+    <p class="notice" style="margin-top:10px">Antes de publicar, sustituye TU_NUMERO_WHATSAPP en el código por el número real del restaurante.</p>
+  </div>
+</aside>
+
+<div class="modal-wrap" id="reservation">
+  <div class="modal">
+    <div class="modal-head"><div><div class="eyebrow">RAMEN 222</div><h2>Reservar mesa</h2></div><button class="close" onclick="closeReservation()">×</button></div>
+    <form class="form" onsubmit="reserve(event)">
+      <input id="rname" required placeholder="Nombre">
+      <input id="rphone" required placeholder="Teléfono">
+      <input id="rdate" required type="date">
+      <input id="rtime" required type="time">
+      <select id="rpeople" required><option value="">Personas</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select>
+      <button class="btn btn-primary" type="submit">Solicitar reservación</button>
+      <p class="notice">El formulario es visual/funcional en esta versión. Para confirmaciones reales se necesita conectar WhatsApp, correo o un sistema de reservas.</p>
+    </form>
+  </div>
+</div>
+
+<script>
+const products = [
+ {name:"SHIN GOLD CHICKEN",price:60,type:"caldo",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Una base premium de pollo con trocitos de huevo; picante equilibrado y sensación casera.",tags:["🍗 Pollo","🌶️ Picante"]},
+ {name:"SHIN TOM YUM",price:60,type:"caldo",img:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80",desc:"Mezcla de picante coreano con notas cítricas de limoncillo, lima y camarón.",tags:["🦐 Mariscos","🌶️ Picante"]},
+ {name:"SHIN MUSHROOM Y TOFU",price:60,type:"caldo",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Opción vegana con tofu frito y champiñones shiitake.",tags:["🌱 Vegano","🍄 Shiitake"]},
+ {name:"REAL CHEESE CREAMY",price:55,type:"caldo",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Ramen con auténtica salsa de queso cheddar: caldo denso, sedoso y profundamente lácteo.",tags:["🧀 Cheddar","🥛 Cremoso"]},
+ {name:"JIN PICANTE",price:50,type:"caldo",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Caldo rojo de res picante con sabor a verduras y chiles.",tags:["🥩 Res","🌶️ Picante"]},
+ {name:"JIN VEGGIE",price:50,type:"caldo",img:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80",desc:"Caldo ligero a base de 10 tipos de vegetales: col, bok choy, champiñones y más.",tags:["🌱 Vegetales"]},
+ {name:"OTTOGI KIMCHI",price:50,type:"caldo",img:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80",desc:"Sopa refrescante con el toque ácido y picante del tradicional kimchi auténtico de Corea.",tags:["🇰🇷 Kimchi","🌶️ Picante"]},
+ {name:"JIN MILD",price:55,type:"caldo",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Toda la profundidad del caldo de res y vegetales en una versión amigable al picor.",tags:["🥩 Res","Mild"]},
+ {name:"KING KIM TONG-KA",price:55,type:"caldo",img:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80",desc:"Fideos con sabor tostado de semillas de sésamo y alga nori; fideos secados al aire.",tags:["🌊 Nori","🌰 Sésamo"]},
+ {name:"PULMONE TONKOTSU PORK BROTH",price:60,type:"caldo",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Caldo blanco y espeso a base de hueso de cerdo con notas a ajo.",tags:["🐷 Cerdo","🧄 Ajo"]},
+ {name:"ODONGTONG MYON",price:50,type:"caldo",img:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80",desc:"Caldo fuerte de mariscos con calamar, camarón y mejillones, más alga kombu.",tags:["🦐 Mariscos","🌊 Kombu"]},
+ {name:"LOBSTER PALDO",price:55,type:"caldo",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Caldo rojo intenso sabor langosta y esencia de mariscos.",tags:["🦞 Langosta","🌶️"]},
+ {name:"SPICY CHEESE",price:55,type:"caldo",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Equilibrio entre el picante del caldo de res y el sabor salado del queso en polvo.",tags:["🧀 Queso","🌶️ Picante"]},
+ {name:"MAPTANG BLACK PEPPER",price:60,type:"caldo",img:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80",desc:"Sopa de res con pimienta negra, ideal para un picor más especiado y profundo.",tags:["🥩 Res","🌶️ Pimienta"]},
+ {name:"SEAWEED SOUP",price:50,type:"caldo",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Ramen inspirado en una sopa de algas tradicional de Corea con caldo de res sustancioso.",tags:["🇰🇷 Corea","🌊 Algas"]},
+ {name:"SAGOL GOMTANG",price:55,type:"caldo",img:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80",desc:"Sopa coreana clásica hecha a base de hueso de buey, cocinado a fuego lento.",tags:["🇰🇷 Clásico","🥩 Buey"]},
+ {name:"BULDAK CARBONARA",price:55,type:"salteado",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Sabor a pollo asado con salsa muy picante a base de guindilla y un toque dulce.",tags:["🍗 Pollo","🌶️ Alto"]},
+ {name:"BULDAK 2X PICANTE",price:55,type:"salteado",img:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80",desc:"Preparación salteada de la línea Buldak con perfil de picante elevado.",tags:["🌶️ 2X","🔥 Intenso"]},
+ {name:"BULDAK HABANERO LIMON",price:55,type:"salteado",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Ramen de pollo asado picante sabor habanero con frescura cítrica en salsa seca ácida.",tags:["🌶️ Habanero","🍋 Limón"]},
+ {name:"BULDAK CHESSE",price:55,type:"salteado",img:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80",desc:"Pollo asado, salsa Gochujang y un toque cremoso de queso cheddar.",tags:["🌶️ Gochujang","🧀 Cheddar"]},
+ {name:"CHAPAGHETTI",price:50,type:"salteado",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Fideos con salsa negra de frijol negro tostado con aceite de oliva y sabor agridulce.",tags:["🫘 Frijol negro"]},
+ {name:"SHIN TOOMBA",price:60,type:"salteado",img:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80",desc:"Ramen frito inspirado en Toomba: picante clásico de Shin Ramyun con salsa cremosa de queso y leche.",tags:["🧀 Cremoso","🌶️"]},
+ {name:"TANGLE TOMATO",price:50,type:"salteado",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Ramen sobre una salsa de tomate espesa y especiada con trozos de carne.",tags:["🍅 Tomate","🥩 Carne"]},
+ {name:"PALDO BIBIM",price:60,type:"salteado",img:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80",desc:"Ramen híbrido para disfrutar frío o caliente, con fideos dulces y picantes, manzana y chiles.",tags:["🍎 Manzana","🌶️ Picante"]},
+ {name:"CREAM JIN",price:60,type:"salteado",img:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",desc:"Versión cremosa del Jjambong: sabor ahumado del océano con leche y queso.",tags:["🌊 Mariscos","🧀 Cremoso"]}
+];
+
+let cart=[];
+let builder={name:null,price:0};
+
+function renderMenu(type='all'){
+ const grid=document.getElementById('menuGrid');
+ grid.innerHTML=products.filter(p=>type==='all'||p.type===type).map((p,i)=>`
+ <article class="card">
+   <div class="card-img" style="background-image:url('${p.img}')"><span class="badge">${p.type==='caldo'?'CON CALDO':'SALTEADO'}</span></div>
+   <div class="card-body">
+    <div class="card-top"><h3>${p.name}</h3><span class="card-price">$${p.price}</span></div>
+    <p>${p.desc}</p>
+    <div class="card-footer"><div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div><button class="add" onclick="addItem('${p.name.replace(/'/g,"\\'")}',${p.price})">+ Agregar</button></div>
+   </div>
+ </article>`).join('');
+}
+function filterMenu(type,btn){
+ document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+ btn.classList.add('active'); renderMenu(type);
+}
+function addItem(name,price){cart.push({name,price});updateCart();openCart()}
+function removeItem(i){cart.splice(i,1);updateCart()}
+function updateCart(){
+ document.getElementById('count').textContent=cart.length;
+ const box=document.getElementById('cartItems');
+ if(!cart.length){box.innerHTML='<div class="empty">Tu pedido está vacío.<br>Elige un ramen para comenzar.</div>'}
+ else box.innerHTML=cart.map((x,i)=>`<div class="cart-item"><div><b>${x.name}</b><small>$${x.price}</small></div><button class="remove" onclick="removeItem(${i})">Eliminar</button></div>`).join('');
+ document.getElementById('total').textContent='$'+cart.reduce((s,x)=>s+x.price,0);
+}
+function openCart(){document.getElementById('cart').classList.add('open');document.getElementById('overlay').classList.add('show')}
+function closeCart(){document.getElementById('cart').classList.remove('open');document.getElementById('overlay').classList.remove('show')}
+function sendWhatsApp(){
+ if(!cart.length){alert('Agrega al menos un producto al pedido.');return}
+ const phone='5541766247';
+ if(phone==='5541766247'){alert('Primero sustituye TU_NUMERO_WHATSAPP en el código por el número real del restaurante.');return}
+ const list=cart.map(x=>`• ${x.name} — $${x.price}`).join('%0A');
+ const total=cart.reduce((s,x)=>s+x.price,0);
+ window.open(`https://wa.me/5541766247);
+}
+function chooseBase(el,name,price){
+ document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
+ el.classList.add('selected');builder={name,price};
+ document.getElementById('selection').textContent=`${name} — $${price}`;
+}
+function addBuilder(){
+ if(!builder.name){alert('Primero escoge tu ramen.');return}
+ addItem(builder.name,builder.price);
+}
+function openReservation(){document.getElementById('reservation').classList.add('show')}
+function closeReservation(){document.getElementById('reservation').classList.remove('show')}
+function reserve(e){
+ e.preventDefault();
+ const name=document.getElementById('rname').value;
+ alert(`Gracias, ${name}. Tu solicitud de reservación quedó preparada. Para confirmarla, conecta este formulario con WhatsApp, correo o un sistema de reservas.`);
+ closeReservation();
+}
+function mobileNav(){
+ const nav=document.querySelector('.links');
+ nav.style.display=nav.style.display==='flex'?'none':'flex';
+ if(nav.style.display==='flex'){
+   nav.style.position='absolute';nav.style.top='68px';nav.style.left='0';nav.style.right='0';
+   nav.style.background='#0b0c0f';nav.style.padding='18px 5%';nav.style.flexDirection='column';nav.style.borderBottom='1px solid var(--line)';
+ }
+}
+renderMenu();updateCart();
+</script>
+</body>
+</html>
