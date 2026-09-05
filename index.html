@@ -244,6 +244,8 @@ footer{border-top:1px solid var(--line);padding:55px 0 25px;background:#07080a}
 .prep-option strong{display:flex;justify-content:space-between;gap:12px;font-size:16px}
 .prep-option span{display:block;color:var(--muted);font-size:12px;margin-top:6px;line-height:1.5}
 .prep-price{color:var(--gold);white-space:nowrap}
+.prep-option.selected{border-color:var(--red);background:rgba(226,27,45,.10);box-shadow:0 0 0 1px rgba(226,27,45,.25)}
+.prep-option .prep-icon{font-size:24px;margin-bottom:7px}
 
 
 /* RESEÑAS DE CLIENTES */
@@ -386,7 +388,6 @@ footer{border-top:1px solid var(--line);padding:55px 0 25px;background:#07080a}
     <div class="hero-stats">
       <div class="stat"><strong>22+</strong><span>opciones de ramen</span></div>
       <div class="stat"><strong>3 pasos</strong><span>para crear tu ramen</span></div>
-      <div class="stat"><strong>222</strong><span>identidad propia</span></div>
     </div>
   </div>
 </section>
@@ -398,12 +399,12 @@ footer{border-top:1px solid var(--line);padding:55px 0 25px;background:#07080a}
       <div class="eyebrow">Experiencia 222</div>
       <h2 class="section-title">ARMA TU <span>RAMEN</span></h2>
     </div>
-    <p class="section-copy">Escoge tu ramen y selecciona únicamente la preparación compatible con ese tipo: con caldo o salteado.</p>
+    <p class="section-copy">Escoge tu ramen y, cada vez que lo agregues, elige cómo lo quieres: caldoso o salteado.</p>
   </div>
 
   <div class="steps">
     <div class="step"><div class="step-number">01</div><h3>Escoge tu ramen</h3><p>Elige uno de nuestros sabores disponibles.</p></div>
-    <div class="step"><div class="step-number">02</div><h3>Preparación</h3><p>Solo aparecerán las preparaciones que sí corresponden a tu ramen.</p></div>
+    <div class="step"><div class="step-number">02</div><h3>Preparación</h3><p>Cada ramen que agregues te preguntará si lo quieres caldoso o salteado.</p></div>
     <div class="step"><div class="step-number">03</div><h3>Toppings</h3><p>Pollo, arrachera, queso suizo o huevo extra.</p></div>
   </div>
 
@@ -662,10 +663,41 @@ footer{border-top:1px solid var(--line);padding:55px 0 25px;background:#07080a}
     </button>
 
     <p class="notice" style="margin-top:10px">
-      Tu pedido se enviará con el nombre del ramen y su preparación exacta: con caldo o salteado.
+      Cada ramen lleva su propia preparación: CALDOSO o SALTEADO. Así se enviará claramente en WhatsApp.
     </p>
   </div>
 </aside>
+
+
+<div class="modal-wrap" id="prepModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow">PERSONALIZA TU PEDIDO</div>
+        <h2 id="prepTitle">¿Cómo lo quieres?</h2>
+      </div>
+      <button class="close" onclick="closePrepModal()">×</button>
+    </div>
+
+    <p class="prep-subtitle">
+      Elige la preparación de este ramen. Esta elección aparecerá claramente en el mensaje de WhatsApp.
+    </p>
+
+    <div class="prep-grid">
+      <button class="prep-option" id="prepCaldoso" onclick="confirmPreparation('caldoso')">
+        <div class="prep-icon">🍜</div>
+        <strong>CALDOSO <span class="prep-price" id="prepCaldosoPrice"></span></strong>
+        <span>Servido con caldo para disfrutarlo bien calientito y con todo su sabor.</span>
+      </button>
+
+      <button class="prep-option" id="prepSalteado" onclick="confirmPreparation('salteado')">
+        <div class="prep-icon">🥢</div>
+        <strong>SALTEADO <span class="prep-price" id="prepSalteadoPrice"></span></strong>
+        <span>Preparado sin caldo, salteado para un ramen más seco e intenso.</span>
+      </button>
+    </div>
+  </div>
+</div>
 
 <div class="modal-wrap" id="reservation">
   <div class="modal">
@@ -788,8 +820,8 @@ function renderMenu(type='all'){
         ${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}
       </div>
 
-      <button class="add" onclick="addItem('${p.name}',${p.price})">
-        + Agregar
+      <button class="add" onclick="addItem('${p.name}',${p.price},'${p.type}')">
+        Preparar ramen
       </button>
     </div>
    </div>
@@ -803,11 +835,46 @@ function filterMenu(type,btn){
  renderMenu(type);
 }
 
-function addItem(name,price){
- cart.push({name,price});
- updateCart();
-loadFirebaseForReviews();
- openCart();
+let pendingItem = null;
+
+function addItem(name,price,type){
+  pendingItem = {name,price,type};
+
+  document.getElementById('prepTitle').textContent = `¿Cómo quieres tu ${name}?`;
+  document.getElementById('prepCaldosoPrice').textContent = `$${price}`;
+  document.getElementById('prepSalteadoPrice').textContent = `$${price}`;
+
+  document.getElementById('prepCaldoso').classList.remove('selected');
+  document.getElementById('prepSalteado').classList.remove('selected');
+
+  document.getElementById('prepModal').classList.add('show');
+}
+
+function confirmPreparation(preparation){
+  if(!pendingItem) return;
+
+  cart.push({
+    name: pendingItem.name,
+    price: pendingItem.price,
+    preparation
+  });
+
+  document.getElementById(
+    preparation === 'caldoso' ? 'prepCaldoso' : 'prepSalteado'
+  ).classList.add('selected');
+
+  pendingItem = null;
+  updateCart();
+
+  setTimeout(() => {
+    closePrepModal();
+    openCart();
+  }, 180);
+}
+
+function closePrepModal(){
+  document.getElementById('prepModal').classList.remove('show');
+  pendingItem = null;
 }
 
 function removeItem(i){
@@ -827,7 +894,7 @@ function updateCart(){
    <div class="cart-item">
      <div>
        <b>${x.name}</b>
-       <small>$${x.price}</small>
+       <small>$${x.price} · ${x.preparation === "caldoso" ? "🍜 CALDOSO" : "🥢 SALTEADO"}</small>
      </div>
 
      <button class="remove" onclick="removeItem(${i})">
@@ -860,7 +927,7 @@ function sendWhatsApp(){
  const phone='525541766247';
 
  const list=cart
-   .map(x=>`• ${x.name} — $${x.price}`)
+   .map(x=>`• ${x.name} — $${x.price} — ${x.preparation === "caldoso" ? "CALDOSO" : "SALTEADO"}`)
    .join('%0A');
 
  const total=cart.reduce((s,x)=>s+x.price,0);
