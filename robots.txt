@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fxdancestudioramen222-bit.github.io/ramen-222/sitemap.xml
